@@ -7,7 +7,6 @@ This repository contains Python code for simulating the dynamics of stem cells, 
 aging-model/
 
 │
-
 ├─ tables/
 
 │   ├─ params_table.csv     # Simulation parameters
