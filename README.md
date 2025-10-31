@@ -8,11 +8,8 @@ aging-model/
 
 │
 ├─ tables/
-
 │   ├─ params_table.csv     # Simulation parameters
-
 │   └─ rates_table.docx     # Transition between cell states and process descriptions
-
 ├─ baseline_model/
 
 │   ├─ deterministic/       # Deterministic model
