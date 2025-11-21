@@ -1,4 +1,4 @@
-## Aging Model
+## Systems-Level Modelling of DNA Damage, Senescence, and Stem Cell Dynamics in Ageing
 
 This repository contains Python code for simulating the dynamics of stem cells, differentiated cells, and senescent cells over the human lifespan. The model explores the effects of stochastic processes, anti-aging interventions, and cancerous cell dynamics.
 
