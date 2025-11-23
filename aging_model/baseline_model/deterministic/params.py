@@ -40,8 +40,8 @@ k_a_sn = 0.01 # stem senescent
 k_a_dn = 0.05 # differentiated senescent
 
 # Repair rate adjusted to damage
-r_rep_s = 0.5 # for stem cells, 90% of damage are immediately repaired
-r_rep_d = 0.4 # for differentiated cells, 99% of damage are immediately repaired
+r_rep_s = 0.5 # for stem cells, % of damage are immediately repaired
+r_rep_d = 0.4 # for differentiated cells, % of damage are immediately repaired
 
 # DNA damage rate for a base pair in a 0.02 years caused by external factors other than ROS
 def f_e(t):
