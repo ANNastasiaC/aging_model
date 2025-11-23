@@ -1,9 +1,46 @@
+from matplotlib import cm
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Simulated population dynamics of cell types throughout the lifespan
+fig, axes = plt.subplots(1, 2, figsize=(12,5), dpi=500)  # independent axes
+S_total = np.sum(S, axis=(1, 2))
+D_total = np.sum(D, axis=(1, 2))
+SQ_total = np.sum(SQ, axis=(1, 2))
+SN_total = np.sum(SN, axis=1)
+DN_total = np.sum(DN, axis=1)
+ax = axes[0] # Linear scale
+ax.plot(t_grid, S_total, label='Stem Cells (S)')
+ax.plot(t_grid, SQ_total, label='Stem Quiescent Cells (SQ)')
+ax.plot(t_grid, D_total, label='Differentiated Cells (D)')
+ax.plot(t_grid, SN_total, label='Senescent Stem Cells (SN)')
+ax.plot(t_grid, DN_total, label='Senescent Differentiated Cells (DN)')
+ax.set_xlabel('Human age (years)')
+ax.set_ylabel('Cell Population')
+ax.set_title('Linear Scale')
+ax.grid(True)
+ax.set_xticks(x_ticks)
+ax.set_xticklabels([int(tick/50) for tick in x_ticks])
+ax = axes[1] # Log scale
+ax.plot(t_grid, np.log(S_total), label='Stem Cells (S)')
+ax.plot(t_grid, np.log(SQ_total), label='Stem Quiescent Cells (SQ)')
+ax.plot(t_grid, np.log(D_total), label='Differentiated Cells (D)')
+ax.plot(t_grid, np.log(SN_total), label='Senescent Stem Cells (SN)')
+ax.plot(t_grid, np.log(DN_total), label='Senescent Differentiated Cells (DN)')
+ax.set_xlabel('Human age (years)')
+ax.set_title('Log Scale')
+ax.grid(True)
+ax.set_xticks(x_ticks)
+ax.set_xticklabels([int(tick/50) for tick in x_ticks])
+handles, labels = axes[0].get_legend_handles_labels()
+fig.legend(handles, labels, loc='center left', bbox_to_anchor=(1.02, 0.5), frameon=False)
+plt.tight_layout()
+plt.show()
+
+
 # The distribution of cell generation numbers in cells of all states across time points
 Z = np.sum(D[:, :, :], axis=1)
-plt.figure(figsize=(6, 4))  # Adjust the figure size for better readability
+plt.figure(figsize=(6, 4),dpi=500)  # Adjust the figure size for better readability
 plt.imshow(Z, cmap='viridis', aspect='auto', origin='lower')
 y_ticks = np.arange(0, 5001, 500)
 print(y_ticks)
@@ -18,7 +55,7 @@ Z = np.sum(D[:, :10, :], axis=2)
 x = np.arange(Z.shape[1])  # Number of columns
 y = np.arange(Z.shape[0])  # Number of rows
 X, Y = np.meshgrid(x, y)    # Create a meshgrid
-fig = plt.figure(figsize=(8, 5))
+fig = plt.figure(figsize=(8, 5),dpi=500)
 ax = fig.add_subplot(111, projection='3d')
 ax.view_init(elev=30, azim=300)
 surf = ax.plot_surface(X, Y, Z, cmap='viridis')
@@ -40,7 +77,7 @@ plt.show()
 
 # Generation number distribution of differentiated non-senescent cells at 100 years.
 A, G = np.meshgrid(a_grid, g_grid)
-fig = plt.figure(figsize=(8, 5))
+fig = plt.figure(figsize=(8,5), dpi=500) 
 D_distribution = D[-1, :15, :80].T  #
 ax2 = fig.add_subplot(121, projection='3d')
 ax2.view_init(elev=30, azim=340)
@@ -69,7 +106,7 @@ for t in range(1, time_steps):
     for g in range(1,gen_steps):
          senescence_replicative[t] += np.sum(D[t, :,g]) * 2*r_rs_d(g, t * dt)*r_div_d(a,f_c)*(1-r_ms_d(t-1) +r_s_sasp(sen_ratio) + r_a_d(t-1, f_c))  # Example for each generation
     senescence_sasp[t]= (np.sum(D[t-1, :,:]))*(np.sum(SN[t,:])+np.sum(DN[t,:]))/(np.sum(SQ[t,:,:])+np.sum(S[t,:,:])+np.sum(D[t,:,:])+np.sum(SN[t,:])+np.sum(DN[t,:]))*0.01
-plt.figure(figsize=(6, 4))
+plt.figure(figsize=(6,4), dpi=500) 
 plt.plot(t_grid, np.log(senescence_dna_damage), label='Non-telomeric DNA Damage induced senescence', color='purple')
 plt.plot(t_grid, np.log(senescence_replicative), label='Replicative senescence', color='brown')
 plt.plot(t_grid, np.log(senescence_sasp), label='SASP induced senescence', color='green')
