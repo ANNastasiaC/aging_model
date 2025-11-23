@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulated population dynamics of cell types througout the lifespan
+Z = np.sum(D[:, :, :], axis=1)
+plt.figure(figsize=(6, 4), dpi = 500)  # Adjust the figure size for better readability
+plt.imshow(Z, cmap='viridis', aspect='auto', origin='lower')
+y_ticks = np.arange(0, 5001, 500)
+print(y_ticks)
+plt.yticks(y_ticks, [int(tick / 50) for tick in y_ticks]) 
+plt.colorbar(label='Number of cells')  # Add colorbar to indicate value scale
+plt.xlabel('Generation number of cell')
+plt.ylabel('Age of human (years)')
+plt.show()
+
+#Distribution of cell generation numbers in cells of all states throughout the lifespan
+fig, ax = plt.subplots(figsize=(6, 5), dpi=500)  # single axes
+S_total = np.sum(S, axis=(1, 2))
+D_total = np.sum(D, axis=(1, 2))
+SQ_total = np.sum(SQ, axis=(1, 2))
+SN_total = np.sum(SN, axis=1)
+DN_total = np.sum(DN, axis=1)
+ax.plot(t_grid, S_total, label='Stem Cells (S)')
+ax.plot(t_grid, SQ_total, label='Stem Quiescent Cells (SQ)')
+ax.plot(t_grid, D_total, label='Differentiated Cells (D)')
+ax.plot(t_grid, SN_total, label='Senescent Stem Cells (SN)')
+ax.plot(t_grid, DN_total, label='Senescent Differentiated Cells (DN)')
+ax.set_xlabel('Human age (years)')
+ax.set_ylabel('Cell Population')
+ax.set_title('Linear Scale')
+ax.grid(True)
+x_ticks = np.arange(0, 5001, 500)
+ax.set_xticks(x_ticks)
+ax.set_xticklabels([int(tick / 50) for tick in x_ticks])
+ax.legend(loc='best')
+plt.tight_layout()
+plt.show()
