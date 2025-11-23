@@ -11,7 +11,7 @@ def r_div_s(a, f_c):
     return 0.12*f_c # % of stem cells of all age would divide over 0.02 years
     
 def r_div_d(a, f_c):
-    return 0.1*f_c # 2% of differentiated cells of all age would divide over 0.02 years
+    return 0.1*f_c # % of differentiated cells of all age would divide over 0.02 years
 
 # Total expected DNA damage in base pairs in a 0.02 years
 def r_dm(t):   
@@ -33,22 +33,22 @@ def r_ms_d(t):
 def r_a_s(t,f_c): #stem
     unrepaired_damage= max(0, r_dm(t) *(1-r_rep_s))
     a_by_damage=(1- (1-k_a_s )** unrepaired_damage)
-    return max(0, a_by_damage + k_c*(1-f_c)**kdamp ) ####
+    return max(0, a_by_damage + k_c*(1-f_c) ) ####
 
 def r_a_d(t,f_c): #differntiated 
     unrepaired_damage= max(0, r_dm(t) *(1-r_rep_d))
     a_by_damage=(1- (1-k_a_d)** unrepaired_damage)
-    return max(0,a_by_damage + k_c*(1-f_c)**kdamp ) ####
+    return max(0,a_by_damage + k_c*(1-f_c)) ####
 
 def r_a_sn(t,f_c): #stem senescent
     unrepaired_damage= max(0, r_dm(t) *(1-r_rep_s))
     a_by_damage=(1- (1-k_a_sn)** unrepaired_damage)
-    return max(0, (a_by_damage + k_c*(1-f_c)**kdamp )*resistance_to_apoptosis+r_immuno_surv*accumulated_dna_health)
+    return max(0, (a_by_damage + k_c*(1-f_c) )*resistance_to_apoptosis+r_immuno_surv*accumulated_dna_health)
 
 def r_a_dn(t,f_c): #differentiated senescent
     unrepaired_damage= max(0, r_dm(t) *(1-r_rep_d))
     a_by_damage=(1- (1-k_a_dn)** unrepaired_damage)
-    return max(0, (a_by_damage + k_c*(1-f_c)**kdamp )*resistance_to_apoptosis+r_immuno_surv*accumulated_dna_health)
+    return max(0, (a_by_damage + k_c*(1-f_c) )*resistance_to_apoptosis+r_immuno_surv*accumulated_dna_health)
 
 
 # Replicative senescence rates calculations, see 2.2.4
